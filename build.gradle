@@ -4,7 +4,7 @@ plugins {
 }
 
 version = "${project.mod_version}+${project.minecraft_version}"
-group = project.maven_group
+group = "${project.maven_group}"
 
 base {
 	archivesName = project.archives_base_name
@@ -16,6 +16,12 @@ repositories {
 	// for more information about repositories.
 }
 
+loom {
+	mixin {
+		useLegacyMixinAp = false
+	}
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -25,38 +31,39 @@ dependencies {
 
 processResources {
 	inputs.properties([
-			"version": project.version,
-			"mcversion": project.minecraft_version,
-			"fabricloaderversion": project.loader_version
+			"version": mod_version,
+			"minecraft_version": minecraft_version,
+			"loader_version": loader_version
 	])
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version,
-				"mcversion": project.minecraft_version,
-				"fabricloaderversion": project.loader_version
+		expand ([
+				"version": mod_version,
+				"minecraft_version": minecraft_version,
+				"loader_version": loader_version
+		])
 	}
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = 21
 }
 
 java {
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
-	from("LICENSE") {
-		rename { "${it}_${base.archivesName.get()}"}
-	}
+	from("LICENSE")
 }
 
 publishing {
 	publications {
-		mavenJava(MavenPublication) {
+		create('mavenJava', MavenPublication) {
+			artifactId = project.archives_base_name
 			from components.java
 		}
 	}
