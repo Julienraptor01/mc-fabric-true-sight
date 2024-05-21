@@ -11,8 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class EntityMixin {
     @Inject(method = "isInvisible", at = @At("HEAD"), cancellable = true)
     private void onIsInvisible(CallbackInfoReturnable<Boolean> info) {
-        if (TrueSightMod.enabled) {
+        if (TrueSightMod.enabled)
             info.setReturnValue(false);
-        }
     }
 }

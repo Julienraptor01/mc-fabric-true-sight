@@ -33,7 +33,6 @@ public abstract class KeyboardMixin {
 
     @Inject(method = "processF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;)V", shift = At.Shift.AFTER, ordinal = 8))
     private void onDebugHelp(int key, CallbackInfoReturnable<Boolean> info) {
-        ChatHud chatHud = this.client.inGameHud.getChatHud();
-        chatHud.addMessage(Text.translatable("truesight.debug.help"));
+        this.client.inGameHud.getChatHud().addMessage(Text.translatable("truesight.debug.help"));
     }
 }

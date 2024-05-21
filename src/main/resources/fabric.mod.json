@@ -5,7 +5,20 @@
   "name": "True Sight",
   "description": "Force invisible entities to render with F3 + M.",
   "authors": [
-    "Roundaround"
+    {
+      "name": "Roundaround",
+      "contact": {
+        "homepage": "https://github.com/Roundaround"
+        }
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Julienraptor01",
+      "contact": {
+        "homepage": "https://github.com/Julienraptor01"
+      }
+    }
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/true-sight",
@@ -16,10 +29,24 @@
   "icon": "assets/truesight/icon.png",
   "environment": "client",
   "mixins": [
-    "truesight.mixins.json"
+    {
+      "config": "truesight.mixins.json",
+      "environment": "client"
+    }
   ],
   "depends": {
-    "fabricloader": ">=${fabricloaderversion}",
-    "minecraft": "~${mcversion}"
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "~${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.modrinth": "https://modrinth.com/mod/true-sight",
+        "modmenu.github_releases": "https://github.com/Roundaround/mc-fabric-true-sight/releases",
+        "modmenu.wiki": "https://github.com/Roundaround/mc-fabric-true-sight/wiki",
+        "modmenu.github_sponsors": "https://github.com/sponsors/Roundaround"
+      },
+      "update_checker": true
+    }
   }
 }
